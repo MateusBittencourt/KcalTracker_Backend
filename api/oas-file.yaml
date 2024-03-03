@@ -27,26 +27,25 @@ paths:
             application/json:
               schema:
                 type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
   /User/login:
-    get:
+    post:
       tags:
         - User
       summary: Logs User into the system
       x-router-controller: users
       operationId: loginUser
-      parameters:
-        - name: Username
-          in: query
-          description: The User name for login
-          required: false
-          schema:
-            type: string
-        - name: password
-          in: query
-          description: The password for login in clear text
-          required: false
-          schema:
-            type: string
+      requestBody:
+        description: Created User object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLoggin'
       responses:
         '200':
           description: successful operation
@@ -62,51 +61,13 @@ paths:
                 type: string
                 format: date-time
           content:
-            application/xml:
-              schema:
-                type: string
             application/json:
               schema:
                 type: string
         '400':
           description: Invalid Username/password supplied
-  /User/logout:
-    get:
-      tags:
-        - User
-      summary: Logs out current logged in User session
-      x-router-controller: users
-      operationId: logoutUser
-      parameters: []
-      responses:
-        default:
-          description: successful operation
   /User/{Username}:
-    get:
-      tags:
-        - User
-      summary: Get User by User name
-      x-router-controller: users
-      operationId: getUserByName
-      parameters:
-        - name: Username
-          in: path
-          description: 'The name that needs to be fetched. Use User1 for testing. '
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'          
-        '400':
-          description: Invalid Username supplied
-        '404':
-          description: User not found
-    put:
+    patch:
       tags:
         - User
       summary: Update User
@@ -151,14 +112,22 @@ components:
     User:
       type: object
       properties:
-        Username:
+        username:
           type: string
-          example: theUser
+          example: MateusBittencourt
         email:
           type: string
-          example: john@email.com
+          example: mateus.bittencourt@outlook.com
         password:
           type: string
-          example: '12345'
-    
+          example: password
+    UserLoggin:
+      type: object
+      properties:
+        username:
+          type: string
+          example: MateusBittencourt
+        password:
+          type: string
+          example: password
   

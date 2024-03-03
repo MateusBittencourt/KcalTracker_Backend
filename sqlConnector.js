@@ -12,11 +12,11 @@ const sqlConfig = {
     },
     options: {
         encrypt: true, // for azure
-        trustServerCertificate: false // change to true for local dev / self-signed certs
+        trustServerCertificate: true // change to true for local dev / self-signed certs
     }
 }
 
-export const sqlConnector = async (query) => {
+const sqlConnector = async (query) => {
     try {
         // make sure that any items are correctly URL encoded in the connection string
         await sql.connect(sqlConfig);
@@ -25,4 +25,19 @@ export const sqlConnector = async (query) => {
     } catch (err) {
         return err
     }
+}
+
+export const createUser = async (username, email, hash, salt) => {
+    const query = `INSERT
+        INTO dbo.users (username, email, hash, lastUpdated)
+        VALUES('${username}', '${email}', '${hash}', GETDATE())`;
+    return await sqlConnector(query);
+};
+
+export const lookUpUser = async (matchBy) => {
+    const query = `SELECT *
+        FROM dbo.users
+        WHERE username='${matchBy}' or email='${matchBy}'`;
+    const response =  await sqlConnector(query);
+    return response.recordset[0]
 }
