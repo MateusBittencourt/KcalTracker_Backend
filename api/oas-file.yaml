@@ -63,7 +63,7 @@ paths:
           content:
             application/json:
               schema:
-                type: string
+                $ref: '#/components/schemas/LogginResponse'
         '400':
           description: Invalid Username/password supplied
   /User/{Username}:
@@ -130,4 +130,16 @@ components:
         password:
           type: string
           example: password
+    LogginResponse:
+      type: object
+      properties:
+        username:
+          type: string
+          example: MateusBittencourt
+        email:
+          type: string
+          example: mateus.bittencourt@outlook.com
+        token:
+          type: string
+          example: 1Nz1YFAXKP0twjtKIWS7Z4oB2tfj7h
   
