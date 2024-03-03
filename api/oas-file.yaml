@@ -1,0 +1,164 @@
+openapi: 3.0.3
+info:
+  title: MS-SQL API
+  description: API for a MS SQL server
+  version: 1.0.0
+tags:
+  - name: User
+    description: User CRUD
+paths:
+  /User:
+    post:
+      tags:
+        - User
+      summary: Create User
+      x-router-controller: users
+      operationId: createUser
+      requestBody:
+        description: Created User object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+  /User/login:
+    get:
+      tags:
+        - User
+      summary: Logs User into the system
+      x-router-controller: users
+      operationId: loginUser
+      parameters:
+        - name: Username
+          in: query
+          description: The User name for login
+          required: false
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login in clear text
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the User
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Invalid Username/password supplied
+  /User/logout:
+    get:
+      tags:
+        - User
+      summary: Logs out current logged in User session
+      x-router-controller: users
+      operationId: logoutUser
+      parameters: []
+      responses:
+        default:
+          description: successful operation
+  /User/{Username}:
+    get:
+      tags:
+        - User
+      summary: Get User by User name
+      x-router-controller: users
+      operationId: getUserByName
+      parameters:
+        - name: Username
+          in: path
+          description: 'The name that needs to be fetched. Use User1 for testing. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+        '400':
+          description: Invalid Username supplied
+        '404':
+          description: User not found
+    put:
+      tags:
+        - User
+      summary: Update User
+      x-router-controller: users
+      operationId: updateUser
+      parameters:
+        - name: Username
+          in: path
+          description: name that need to be deleted
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent User in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        default:
+          description: successful operation
+    delete:
+      tags:
+        - User
+      summary: Delete User
+      x-router-controller: users
+      operationId: deleteUser
+      parameters:
+        - name: Username
+          in: path
+          description: The name that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid Username supplied
+        '404':
+          description: User not found
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        Username:
+          type: string
+          example: theUser
+        email:
+          type: string
+          example: john@email.com
+        password:
+          type: string
+          example: '12345'
+    
+  

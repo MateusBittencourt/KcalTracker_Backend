@@ -1,0 +1,11 @@
+import { createServer } from 'http';
+import express, { json } from "express";
+import { initialize } from "@oas-tools/core";
+const app = express();
+
+app.use(json());
+const serverPort = process.env.PORT;
+
+initialize(app).then(() => {
+    createServer(app).listen(serverPort, () => console.log(`Server started on port ${serverPort}!`));
+})
