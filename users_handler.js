@@ -45,9 +45,21 @@ export const loginUser = async (username, password) => {
     return false;
 };
 
-
-export const changePassword = async (email) => {
-    //Todo
+export const passwordChange = async (username, currentPassword, newPassword) => {
+    const user = await lookUpUser(username);
+    if (user != undefined){
+        if (comparePassword(currentPassword, user.hash)){
+            const hash = createHash(newPassword);
+            try {
+                if(await sql_changePasword(username, hash) == 1){
+                    return true
+                }
+            } catch {
+                return false;
+            }
+        }
+    }
+    return false;
 };
 
 export const passwordRecovery = async (email) => {

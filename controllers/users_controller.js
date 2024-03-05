@@ -2,6 +2,7 @@ import {
     createUser as handler_createUser,
     loginUser as handler_loginUser,
     passwordRecovery as handler_passwordRecovery,
+    passwordChange as handler_passwordChange,
     myEmitter
 } from "../users_handler.js";
 
@@ -38,9 +39,16 @@ export const loginUser = async (req, res) => {
     return res.status(400).send("Wrong Username/email or Password");
 };
 
-export const changePassword = async (req, res) => {
-    //ToDo
-    return res.send();
+export const passwordChange = async (req, res) => {
+    const { username, currentPassword, newPassword } = req.body
+    if (
+        username == undefined ||
+        currentPassword == undefined ||
+        newPassword == undefined
+    ){
+        return res.status(400).send("Missing required fields");
+    }
+    return res.send(await handler_passwordChange(username, currentPassword, newPassword));
 };
 
 export const passwordRecovery = async (req, res) => {
