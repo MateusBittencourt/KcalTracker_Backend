@@ -66,6 +66,43 @@ paths:
                 $ref: '#/components/schemas/LogginResponse'
         '400':
           description: Invalid Username/password supplied
+  /User/passwordRecovery:
+    post:
+      tags:
+        - User
+      summary: Password recovery
+      x-router-controller: users
+      operationId: passwordRecovery
+      requestBody:
+        description: Generates a token for users to change their password.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordRecovery'
+      responses:
+        '200':
+          description: successful operation
+  /User/passwordInputToken:
+    post:
+      tags:
+        - User
+      summary: Password recovery change
+      x-router-controller: users
+      operationId: passwordInputToken
+      requestBody:
+        description: Generates a token for users to change their password.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenReply'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
   /User/{Username}:
     patch:
       tags:
@@ -142,4 +179,18 @@ components:
         token:
           type: string
           example: 1Nz1YFAXKP0twjtKIWS7Z4oB2tfj7h
-  
+    PasswordRecovery:
+      type: object
+      properties:
+        email:
+          type: string
+          example: mateus.bittencourt@outlook.com
+    TokenReply:
+      type: object
+      properties:
+        token:
+          type: string
+          example: 1Nz1YFAXKP0twjtKIWS7Z4oB2tfj7h
+        password:
+          type: string
+          example: password

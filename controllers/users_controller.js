@@ -1,8 +1,9 @@
 import {
-    createUser as sql_createUser,
-    lookUpUser
-} from '../utils/sqlConnector.js'
-import { createHash, comparePassword } from '../utils/password.js'
+    createUser as handler_createUser,
+    loginUser as handler_loginUser,
+    passwordRecovery as handler_passwordRecovery,
+    myEmitter
+} from "../users_handler.js";
 
 export const createUser = async (req, res) => {
     const { username, email, password } = req.body
@@ -13,14 +14,8 @@ export const createUser = async (req, res) => {
     ){
         return res.status(400).send("Missing required fields");
     }
-    if (lookUpUser(username) != undefined){
-        return res.status(400).send("username unavailable");
-    }
-    if (lookUpUser(email) != undefined){
-        return res.status(400).send("email already registred");
-    }
-    const hash = createHash(password);
-    return res.send(await sql_createUser(username, email, hash));
+    const reply = await handler_createUser(username, email, password)
+    return res.status(reply.statusCode).send(reply.response);
 };
 
 export const loginUser = async (req, res) => {
@@ -31,21 +26,43 @@ export const loginUser = async (req, res) => {
     ){
         return res.status(400).send("Missing required fields");
     }
-    const user = await lookUpUser(username);
-    if (user != undefined){
-        if (comparePassword(password, user.hash)){
-            res.header('X-Rate-Limit', 3);
-            let date = new Date();
-            date.setDate(date.getDate() + 1);
-            res.header('X-Expires-After', date);
-            return res.send({
-                username: user.username,
-                email: user.email,
-                token: 'ToDo'
-            })
-        }
+        const user = await handler_loginUser(username, password)
+    if (user){
+        res.header('X-Rate-Limit', 3);
+        res.header('X-Rate-Limit', 3);
+        let date = new Date();
+        date.setDate(date.getDate() + 1);
+        res.header('X-Expires-After', date);
+        return res.send(user)
     }
     return res.status(400).send("Wrong Username/email or Password");
+};
+
+export const changePassword = async (req, res) => {
+    //ToDo
+    return res.send();
+};
+
+export const passwordRecovery = async (req, res) => {
+    const { email } = req.body
+
+    if ( email == undefined ){
+        return res.status(400).send("Missing required fields");
+    }
+    handler_passwordRecovery(email)
+    return res.send();
+};
+
+export const passwordInputToken = async (req, res) => {
+    const { token, password } = req.body
+
+    if ( token == undefined ){
+        return res.status(400).send("Missing required fields");
+    }
+    myEmitter.emit(token, password);
+    myEmitter.once(`${token}-B`, (cancel = false) => {
+        return res.send(!cancel);
+    });
 };
 
 export const logoutUser = async (req, res) => {
@@ -63,3 +80,4 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
     res.send({createUser: "This is an createUser"});
 };
+

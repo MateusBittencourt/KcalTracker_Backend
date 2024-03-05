@@ -41,3 +41,11 @@ export const lookUpUser = async (matchBy) => {
     const response =  await sqlConnector(query);
     return response.recordset[0]
 }
+
+export const changePassword = async (matchBy, hash) => {
+    const query = `UPDATE dbo.users
+        SET hash = '${hash}'
+        WHERE username='${matchBy}' or email='${matchBy}'`;
+    const response =  await sqlConnector(query);
+    return response.rowsAffected[0]
+}

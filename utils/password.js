@@ -1,4 +1,3 @@
-// Requiring module
 import bcrypt from 'bcryptjs';
  
 export const createHash = (password) => {
