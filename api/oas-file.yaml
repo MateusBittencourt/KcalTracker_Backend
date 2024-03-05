@@ -66,6 +66,22 @@ paths:
                 $ref: '#/components/schemas/LogginResponse'
         '400':
           description: Invalid Username/password supplied
+  /User/passwordChange:
+    post:
+      tags:
+        - User
+      summary: Change Password
+      x-router-controller: users
+      operationId: passwordChange
+      requestBody:
+        description: Changes user's password.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordChange'
+      responses:
+        '200':
+          description: successful operation
   /User/passwordRecovery:
     post:
       tags:
@@ -185,6 +201,18 @@ components:
         email:
           type: string
           example: mateus.bittencourt@outlook.com
+    PasswordChange:
+      type: object
+      properties:
+        username:
+          type: string
+          example: MateusBittencourt
+        currentPassword:
+          type: string
+          example: password1
+        newPassword:
+          type: string
+          example: password2
     TokenReply:
       type: object
       properties:
