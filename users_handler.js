@@ -12,21 +12,24 @@ export const myEmitter = new EventEmitter();
 
 
 export const createUser = async (username, email, password) => {
-    let reply = {
-        statusCode,
-        response
-    };
-    
-    if (lookUpUser(username) != undefined){
+    let reply = {};
+    if (await lookUpUser(username) != undefined){
         reply.statusCode = 400;
         reply.response = 'username unavailable';
-    } else if (lookUpUser(email) != undefined){
+    } else if (await lookUpUser(email) != undefined){
         reply.statusCode = 400;
-        reply.response = 'email already registred';
+        reply.response = 'email already registered';
     } else {
         const hash = createHash(password);
         reply.statusCode = 200
-        reply.response = await sql_createUser(username, email, hash)
+        await sql_createUser(username, email, hash)
+        const user = await lookUpUser(username);
+        const token = uuidv4(); 
+        reply.response = {
+            username: user.username,
+            email: user.email,
+            token
+        }
     }
     return reply;
 };
@@ -35,10 +38,11 @@ export const loginUser = async (username, password) => {
     const user = await lookUpUser(username);
     if (user != undefined){
         if (comparePassword(password, user.hash)){
+            const token = uuidv4();
             return {
                 username: user.username,
                 email: user.email,
-                token: 'ToDo'
+                token
             }
         }
     }
