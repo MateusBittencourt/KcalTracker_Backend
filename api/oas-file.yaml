@@ -194,7 +194,7 @@ components:
           example: mateus.bittencourt@outlook.com
         token:
           type: string
-          example: 1Nz1YFAXKP0twjtKIWS7Z4oB2tfj7h
+          example: 00000000-0000-0000-0000-000000000000
     PasswordRecovery:
       type: object
       properties:
@@ -218,7 +218,7 @@ components:
       properties:
         token:
           type: string
-          example: 1Nz1YFAXKP0twjtKIWS7Z4oB2tfj7h
+          example: 00000000-0000-0000-0000-000000000000
         password:
           type: string
           example: password

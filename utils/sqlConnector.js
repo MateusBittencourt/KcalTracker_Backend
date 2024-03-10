@@ -27,7 +27,7 @@ const sqlConnector = async (query) => {
     }
 }
 
-export const createUser = async (username, email, hash, salt) => {
+export const createUser = async (username, email, hash) => {
     const query = `INSERT
         INTO dbo.users (username, email, hash, lastUpdated)
         VALUES('${username}', '${email}', '${hash}', GETDATE())`;
@@ -44,7 +44,8 @@ export const lookUpUser = async (matchBy) => {
 
 export const changePassword = async (matchBy, hash) => {
     const query = `UPDATE dbo.users
-        SET hash = '${hash}'
+        SET hash = '${hash}',
+        lastUpdated = GETDATE()
         WHERE username='${matchBy}' or email='${matchBy}'`;
     const response =  await sqlConnector(query);
     return response.rowsAffected[0]
