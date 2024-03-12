@@ -50,3 +50,25 @@ export const changePassword = async (matchBy, hash) => {
     const response =  await sqlConnector(query);
     return response.rowsAffected[0]
 }
+
+export const getHistory = async (userId, date) => {
+    const query = `SELECT *
+        FROM dbo.history
+        WHERE userId='${userId}' AND date='${date}'`;
+    const response =  await sqlConnector(query);
+    return response.recordset
+}
+
+export const addHistory = async (userId, foodId, weight, type, date) => {
+    const query = `INSERT
+        INTO dbo.history (userId, foodId, weight, type, date)
+        VALUES('${userId}', '${foodId}', '${weight}', '${type}', '${date}')`;
+    return await sqlConnector(query);
+}
+
+export const removeHistory = async (historyId) => {
+    const query = `DELETE
+        From dbo.history
+        WHERE id='${historyId}'`;
+    return await sqlConnector(query);
+}

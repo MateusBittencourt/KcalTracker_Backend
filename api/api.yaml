@@ -14,3 +14,6 @@ paths:
   /user/passwordRecovery: {$ref: 'paths/users.yaml#/paths/user-recoverPassword'}
   /user/passwordInputToken: {$ref: 'paths/users.yaml#/paths/user-inputToken'}
   
+  /history/get: {$ref: 'paths/history.yaml#/paths/history-get'}
+  /history/add: {$ref: 'paths/history.yaml#/paths/history-add'}
+  /history/remove: {$ref: 'paths/history.yaml#/paths/history-remove'}
