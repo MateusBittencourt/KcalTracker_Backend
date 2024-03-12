@@ -4,7 +4,7 @@ import {
     passwordRecovery as handler_passwordRecovery,
     passwordChange as handler_passwordChange,
     myEmitter
-} from "../users_handler.js";
+} from "../src/users.js";
 
 export const createUser = async (req, res) => {
     const { username, email, password } = req.body
