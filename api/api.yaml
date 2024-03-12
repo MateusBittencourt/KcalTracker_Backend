@@ -1,0 +1,16 @@
+openapi: 3.0.3
+info:
+  title: MS-SQL API
+  description: API for a MS SQL server
+  version: 1.0.0
+tags:
+  - name: User
+    description: User CRUD
+
+paths:
+  /user/create: {$ref: 'paths/users.yaml#/paths/user-create'}
+  /user/login: {$ref: 'paths/users.yaml#/paths/user-login'}
+  /user/passwordChange: {$ref: 'paths/users.yaml#/paths/user-changePassword'}
+  /user/passwordRecovery: {$ref: 'paths/users.yaml#/paths/user-recoverPassword'}
+  /user/passwordInputToken: {$ref: 'paths/users.yaml#/paths/user-inputToken'}
+  

@@ -1,0 +1,8 @@
+{
+    "oasFile": "api/api.yaml",
+    "middleware": {
+        "router": {
+            "controllers": "src/handlers"
+        }
+    }
+}
