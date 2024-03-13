@@ -34,12 +34,64 @@ export const createUser = async (username, email, hash) => {
     return await sqlConnector(query);
 };
 
-export const lookUpUser = async (matchBy) => {
+export const getUser = async (matchBy) => {
     const query = `SELECT *
         FROM dbo.users
         WHERE username='${matchBy}' or email='${matchBy}'`;
     const response =  await sqlConnector(query);
     return response.recordset[0]
+}
+
+export const getUserByToken = async (accessToken) => {
+    const query = `SELECT dbo.users.*
+    FROM dbo.users
+    JOIN dbo.access ON dbo.users.id = dbo.access.userId
+    WHERE dbo.access.accessToken='${accessToken}'`;
+    const response =  await sqlConnector(query);
+    updateAccess(accessToken);
+    return response.recordset[0];
+}
+
+export const createAccess = async (userId, accessToken) => {
+    const query = `INSERT 
+    INTO dbo.access (userId, accessToken, firstUse, lastUse)
+    VALUES (${userId}, '${accessToken}', GETDATE(), GETDATE())`;
+    return await sqlConnector(query);
+}
+
+export const updateAccess = async (accessToken) => {
+    const query = `UPDATE dbo.access
+    SET lastUse = GETDATE()
+    WHERE accessToken='${accessToken}'`;
+    const response =  await sqlConnector(query);
+    return response;
+}
+
+export const removeAccess = async (accessToken) => {
+    const query = `DELETE
+    FROM dbo.access
+    WHERE accessToken='${accessToken}'`;
+    return await sqlConnector(query);
+}
+
+export const removeAllAccess = async (accessToken) => {
+    const query = `DELETE
+    FROM dbo.access
+    WHERE userId=(
+        SELECT userId
+        FROM dbo.access
+        WHERE accessToken='${accessToken}')
+    AND accessToken!='${accessToken}'`;
+    return await sqlConnector(query);
+}
+
+export const expireAccess = async () => {
+    const query = `DELETE
+    FROM dbo.access
+    WHERE lastUse < DATEADD(day, -1, GETDATE())`;
+    const response =  await sqlConnector(query);
+    console.dir(response);
+    return response;
 }
 
 export const changePassword = async (matchBy, hash) => {
@@ -72,3 +124,5 @@ export const removeHistory = async (historyId) => {
         WHERE id='${historyId}'`;
     return await sqlConnector(query);
 }
+
+setInterval(expireAccess, 60*60*1000);

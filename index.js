@@ -7,5 +7,5 @@ app.use(json());
 const serverPort = process.env.PORT;
 
 initialize(app).then(() => {
-    createServer(app).listen(serverPort, () => console.log(`Server started on port ${serverPort}!`));
+    createServer(app).listen(serverPort, () => console.dir(`Server started on port ${serverPort}!`));
 })

@@ -1,13 +1,15 @@
 import {
     createUser,
-    loginUser,
+    login,
+    loginByToken,
+    logout,
     passwordRecovery,
     passwordChange,
     myEmitter
 } from "../users.js";
 
 export const createUser_handler = async (req, res) => {
-    const { username, email, password } = req.body
+    const { username, email, password } = req.body;
     if (
         username == undefined ||
         email == undefined ||
@@ -19,28 +21,50 @@ export const createUser_handler = async (req, res) => {
     return res.status(reply.statusCode).send(reply.response);
 };
 
-export const loginUser_handler = async (req, res) => {
-    const { username, password } = req.body
+export const login_handler = async (req, res) => {
+    const { username, password } = req.body;
     if (
         username == undefined ||
         password == undefined
     ){
         return res.status(400).send("Missing required fields");
     }
-        const user = await loginUser(username, password)
+        const user = await login(username, password)
     if (user){
-        res.header('X-Rate-Limit', 3);
-        res.header('X-Rate-Limit', 3);
-        let date = new Date();
-        date.setDate(date.getDate() + 1);
-        res.header('X-Expires-After', date);
         return res.send(user)
     }
     return res.status(400).send("Wrong Username/email or Password");
 };
 
+export const loginByToken_handler = async (req, res) => {
+    const { accessToken } = req.body;
+    if (
+        accessToken == undefined
+    ){
+        return res.status(400).send("Missing required fields");
+    }
+    const user = await loginByToken(accessToken)
+    if (user){
+        return res.send(user);
+    }
+    return res.status(403).send();
+};
+
+export const logout_handler = async (req, res) => {
+    const { accessToken } = req.body;
+    if (
+        accessToken == undefined
+    ){
+        return res.status(400).send("Missing required fields");
+    }
+    if (await logout(accessToken)){
+        return res.status(202).send();
+    }
+    return res.status(500).send();
+}
+
 export const passwordChange_handler = async (req, res) => {
-    const { username, currentPassword, newPassword } = req.body
+    const { username, currentPassword, newPassword } = req.body;
     if (
         username == undefined ||
         currentPassword == undefined ||
@@ -52,7 +76,7 @@ export const passwordChange_handler = async (req, res) => {
 };
 
 export const passwordRecovery_handler = async (req, res) => {
-    const { email } = req.body
+    const { email } = req.body;
 
     if ( email == undefined ){
         return res.status(400).send("Missing required fields");
@@ -62,7 +86,7 @@ export const passwordRecovery_handler = async (req, res) => {
 };
 
 export const passwordInputToken_handler = async (req, res) => {
-    const { token, password } = req.body
+    const { validationToken, password } = req.body;
 
     if ( token == undefined ){
         return res.status(400).send("Missing required fields");
@@ -71,8 +95,4 @@ export const passwordInputToken_handler = async (req, res) => {
     myEmitter.once(`${token}-B`, (cancel = false) => {
         return res.send(!cancel);
     });
-};
-
-export const logoutUser_handler = async (req, res) => {
-    res.send({createUser: "This is an createUser"});
 };

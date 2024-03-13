@@ -1,5 +1,5 @@
 paths:
-  user-create:
+  create:
     post:
       tags:
         - User
@@ -11,7 +11,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/schemas/User'
+              $ref: '#/schemas/Create'
       responses:
         '200':
           description: successful operation
@@ -25,40 +25,67 @@ paths:
             application/json:
               schema:
                 type: string
-  user-login:
+  login:
     post:
       tags:
         - User
       summary: Logs User into the system
       x-router-controller: users
-      operationId: loginUser_handler
+      operationId: login_handler
       requestBody:
         description: Created User object
         content:
           application/json:
             schema:
-              $ref: '#/schemas/UserLoggin'
+              $ref: '#/schemas/Login'
       responses:
         '200':
           description: successful operation
-          headers:
-            X-Rate-Limit:
-              description: calls per hour allowed by the User
-              schema:
-                type: integer
-                format: int32
-            X-Expires-After:
-              description: date in UTC when token expires
-              schema:
-                type: string
-                format: date-time
           content:
             application/json:
               schema:
-                $ref: '#/schemas/LogginResponse'
+                $ref: '#/schemas/LoginResponse'
         '400':
           description: Invalid Username/password supplied
-  user-changePassword:
+  loginByToken:
+    post:
+      tags:
+        - User
+      summary: Logs User into the system
+      x-router-controller: users
+      operationId: loginByToken_handler
+      requestBody:
+        description: Created User object
+        content:
+          application/json:
+            schema:
+              $ref: '#/schemas/LoginByToken'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/schemas/LoginResponse'
+        '400':
+          description: Invalid Username/password supplied
+  logout:
+    post:
+      tags:
+        - User
+      summary: Logout user
+      x-router-controller: users
+      operationId: logout_handler
+      requestBody:
+        description: Access Token
+        content:
+          application/json:
+            schema:
+              $ref: '#/schemas/TokenBody'
+      responses:
+        '202':
+          description: OK
+  changePassword:
     post:
       tags:
         - User
@@ -73,8 +100,8 @@ paths:
               $ref: '#/schemas/PasswordChange'
       responses:
         '200':
-          description: successful operation
-  user-recoverPassword:
+          description: OK
+  recoverPassword:
     post:
       tags:
         - User
@@ -88,9 +115,9 @@ paths:
             schema:
               $ref: '#/schemas/PasswordRecovery'
       responses:
-        '200':
-          description: successful operation
-  user-inputToken:
+        '202':
+          description: Accepted
+  inputToken:
     post:
       tags:
         - User
@@ -114,25 +141,30 @@ paths:
 
 schemas:
 
-  UserLoggin:
-    type: object
-    properties:
-      username: {$ref: '#/properties/username'}
-      password: {$ref: '#/properties/password'}
-  
-  User:
+  Create:
     type: object
     properties:
       username: {$ref: '#/properties/username'}
       email: {$ref: '#/properties/email'}
       password: {$ref: '#/properties/password'}
+
+  Login:
+    type: object
+    properties:
+      username: {$ref: '#/properties/username'}
+      password: {$ref: '#/properties/password'}
+
+  LoginByToken:
+    type: object
+    properties:
+      accessToken: {$ref: '#/properties/token'}
   
-  LogginResponse:
+  LoginResponse:
     type: object
     properties:
       username: {$ref: '#/properties/username'}
       email: {$ref: '#/properties/email'}
-      token: {$ref: '#/properties/token'}
+      accessToken: {$ref: '#/properties/token'}
   
   PasswordRecovery:
     type: object
@@ -149,8 +181,13 @@ schemas:
   TokenReply:
     type: object
     properties:
-      token: {$ref: '#/properties/token'}
+      validationToken: {$ref: '#/properties/token'}
       password: {$ref: '#/properties/password'}
+  
+  TokenBody:
+    type: object
+    properties:
+      validationToken: {$ref: '#/properties/token'}
 
 properties:
 
