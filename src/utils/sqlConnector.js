@@ -128,7 +128,7 @@ export const addHistory = async (accessToken, foodId, weight, type, date) => {
         SELECT dbo.access.userId
         FROM dbo.access
         WHERE dbo.access.accessToken = '${accessToken}'
-    ), ${foodId}, ${weight}, '${type}', '${date})`;
+    ), ${foodId}, ${weight}, '${type}', '${date}')`;
     const response =  await sqlConnector(query);
     updateAccess(accessToken);
     return response;

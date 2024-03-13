@@ -5,21 +5,21 @@ import {
 } from "../history.js";
 
 export const getHistory_handler = async (req, res) => {
-    const { token, date } = req.body
+    const { accessToken, date } = req.body
     if (
-        token == undefined ||
+        accessToken == undefined ||
         date == undefined
     ){
         return res.status(400).send("Missing required fields");
     }
-    const history = await getHistory(token, date)
+    const history = await getHistory(accessToken, date)
     return res.send(history);
 };
 
 export const addHistory_handler = async (req, res) => {
-    const { token, foodId, weight, meal, date } = req.body
+    const { accessToken, foodId, weight, meal, date } = req.body
     if (
-        token == undefined ||
+        accessToken == undefined ||
         foodId == undefined ||
         weight == undefined ||
         meal == undefined ||
@@ -27,18 +27,18 @@ export const addHistory_handler = async (req, res) => {
     ){
         return res.status(400).send("Missing required fields");
     }
-    await addHistory(token, foodId, weight, meal, date);
+    await addHistory(accessToken, foodId, weight, meal, date);
     return res.send("OK");
 };
 
 export const removeHistory_handler = async (req, res) => {
-    const { token, historyId } = req.body
+    const { accessToken, historyId } = req.body
     if (
-        token == undefined ||
+        accessToken == undefined ||
         historyId == undefined
     ){
         return res.status(400).send("Missing required fields");
     }
-    await removeHistory(token, historyId);
+    await removeHistory(accessToken, historyId);
     return res.send("OK");
 };

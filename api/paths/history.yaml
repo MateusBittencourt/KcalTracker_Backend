@@ -4,7 +4,7 @@ paths:
       tags:
         - History
       summary: Get meal to history
-      x-router-controller: history
+      x-router-controller: history_handler
       operationId: getHistory_handler
       requestBody:
         description: History object
@@ -14,23 +14,15 @@ paths:
               $ref: '#/schemas/GetHistory'
       responses:
         '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
+          description: OK
         '400':
           description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: string
   history-add:
     post:
       tags:
         - History
       summary: Add meal to history
-      x-router-controller: history
+      x-router-controller: history_handler
       operationId: addHistory_handler
       requestBody:
         description: History object
@@ -40,23 +32,16 @@ paths:
               $ref: '#/schemas/AddHistory'
       responses:
         '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
+          description: OK
         '400':
           description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: string
+
   history-remove:
     post:
       tags:
         - History
       summary: Remove meal from history
-      x-router-controller: history
+      x-router-controller: history_handler
       operationId: removeHistory_handler
       requestBody:
         description: History object
@@ -66,17 +51,9 @@ paths:
               $ref: '#/schemas/RemoveHistory'
       responses:
         '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
+          description: OK
         '400':
           description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: string
 
 
 schemas:
@@ -110,7 +87,7 @@ properties:
   
   date:
     type: string
-    format: date-time
+    format: date
   
   foodId:
     type: integer
@@ -129,6 +106,5 @@ properties:
 
   meal:
     type: string
-    format: enum
     example: Dinner
     
