@@ -1,3 +1,5 @@
-# ms-sql_api
+# KcalTracker_Backend
 
-API for my Android APP
+Backend for an Android application that helps users track their calories, and helps them make healthier choises.
+
+This was first developed for a class asignment.
