@@ -103,19 +103,35 @@ export const changePassword = async (matchBy, hash) => {
     return response.rowsAffected[0]
 }
 
-export const getHistory = async (userId, date) => {
-    const query = `SELECT *
-        FROM dbo.history
-        WHERE userId='${userId}' AND date='${date}'`;
+export const getHistory = async (accessToken, date) => {
+    const query = `SELECT
+        dbo.history.weight,
+        dbo.taco.kcal,
+        dbo.taco.description,
+        dbo.taco.foodGroup,
+        dbo.history.type
+    FROM dbo.users
+    JOIN dbo.history ON dbo.users.id = dbo.history.userId
+    JOIN dbo.access ON dbo.users.id = dbo.access.userId
+    JOIN dbo.taco ON dbo.history.foodId = dbo.taco.id
+    WHERE dbo.access.accessToken = '${accessToken}'
+    AND dbo.history.date = '${date}'`;
     const response =  await sqlConnector(query);
+    updateAccess(accessToken);
     return response.recordset
 }
 
-export const addHistory = async (userId, foodId, weight, type, date) => {
+export const addHistory = async (accessToken, foodId, weight, type, date) => {
     const query = `INSERT
-        INTO dbo.history (userId, foodId, weight, type, date)
-        VALUES('${userId}', '${foodId}', '${weight}', '${type}', '${date}')`;
-    return await sqlConnector(query);
+    INTO dbo.history (userId, foodId, weight, type, date)
+    VALUES ((
+        SELECT dbo.access.userId
+        FROM dbo.access
+        WHERE dbo.access.accessToken = '${accessToken}'
+    ), ${foodId}, ${weight}, '${type}', '${date})`;
+    const response =  await sqlConnector(query);
+    updateAccess(accessToken);
+    return response;
 }
 
 export const removeHistory = async (historyId) => {

@@ -84,13 +84,13 @@ schemas:
   GetHistory:
     type: object
     properties:
-      token: {$ref: '#/properties/token'}
+      accessToken: {$ref: '#/properties/token'}
       date: {$ref: '#/properties/date'}
   
   AddHistory:
     type: object
     properties:
-      token: {$ref: '#/properties/token'}
+      accessToken: {$ref: '#/properties/token'}
       foodId: {$ref: '#/properties/foodId'}
       weight: {$ref: '#/properties/weight'}
       meal: {$ref: '#/properties/meal'}
@@ -99,7 +99,7 @@ schemas:
   RemoveHistory:
     type: object
     properties:
-      token: {$ref: '#/properties/token'}
+      accessToken: {$ref: '#/properties/token'}
       historyId: {$ref: '#/properties/historyId'}
 
 properties:

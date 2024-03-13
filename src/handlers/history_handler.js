@@ -13,7 +13,7 @@ export const getHistory_handler = async (req, res) => {
         return res.status(400).send("Missing required fields");
     }
     const history = await getHistory(token, date)
-    return res.send("OK");
+    return res.send(history);
 };
 
 export const addHistory_handler = async (req, res) => {
