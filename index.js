@@ -1,6 +1,7 @@
 import { createServer } from 'http';
 import express, { json } from "express";
 import { initialize } from "@oas-tools/core";
+import 'dotenv/config'
 const app = express();
 
 app.use(json());
