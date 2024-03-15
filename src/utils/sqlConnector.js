@@ -137,7 +137,7 @@ export const addHistory = async (accessToken, foodId, weight, type, date) => {
 export const removeHistory = async (historyId) => {
     const query = `DELETE
         From dbo.history
-        WHERE id='${historyId}'`;
+        WHERE id=${historyId}`;
     return await sqlConnector(query);
 }
 
