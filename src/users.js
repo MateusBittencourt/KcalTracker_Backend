@@ -31,7 +31,11 @@ export const createUser = async (username, email, password) => {
         reply.response = {
             username: user.username,
             email: user.email,
-            accessToken
+            accessToken,
+            name: user.name,
+            goal: user.goal,
+            weight: user.weight,
+            height: user.height
         }
     }
     return reply;
@@ -46,7 +50,11 @@ export const login = async (username, password) => {
             return {
                 username: user.username,
                 email: user.email,
-                accessToken
+                accessToken,
+                name: user.name,
+                goal: user.goal,
+                weight: user.weight,
+                height: user.height
             }
         }
     }
@@ -59,7 +67,11 @@ export const loginByToken = async (accessToken) => {
         return {
             username: user.username,
             email: user.email,
-            accessToken
+            accessToken,
+            name: user.name,
+            goal: user.goal,
+            weight: user.weight,
+            height: user.height
         }
     }
     return false;
