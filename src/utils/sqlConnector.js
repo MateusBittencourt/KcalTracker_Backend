@@ -97,7 +97,7 @@ export const expireAccess = async () => {
 export const changePassword = async (matchBy, hash) => {
     const query = `UPDATE dbo.users
         SET hash = '${hash}',
-        lastUpdated = GETDATE()
+            lastUpdated = GETDATE()
         WHERE username='${matchBy}' or email='${matchBy}'`;
     const response =  await sqlConnector(query);
     return response.rowsAffected[0]
@@ -139,6 +139,58 @@ export const removeHistory = async (historyId) => {
         From dbo.history
         WHERE id=${historyId}`;
     return await sqlConnector(query);
+}
+
+export const setName = async (accessToken, name) => {
+    const query = `UPDATE dbo.users
+    SET name = '${name}',
+        lastUpdated = GETDATE()
+    WHERE dbo.users.id = (
+        SELECT userId
+        FROM dbo.access
+        WHERE accessToken='${accessToken}')`;
+    const response =  await sqlConnector(query);
+    updateAccess(accessToken);
+    return response.rowsAffected[0];
+}
+
+export const setGoal = async (accessToken, goal) => {
+    const query = `UPDATE dbo.users
+    SET goal = ${goal},
+        lastUpdated = GETDATE()
+    WHERE dbo.users.id = (
+        SELECT userId
+        FROM dbo.access
+        WHERE accessToken='${accessToken}')`;
+    const response =  await sqlConnector(query);
+    updateAccess(accessToken);
+    return response.rowsAffected[0];
+}
+
+export const setWeight = async (accessToken, weight) => {
+    const query = `UPDATE dbo.users
+    SET weight = ${weight},
+        lastUpdated = GETDATE()
+    WHERE dbo.users.id = (
+        SELECT userId
+        FROM dbo.access
+        WHERE accessToken='${accessToken}')`;
+    const response =  await sqlConnector(query);
+    updateAccess(accessToken);
+    return response.rowsAffected[0];
+}
+
+export const setHeight = async (accessToken, height) => {
+    const query = `UPDATE dbo.users
+    SET height = ${height},
+        lastUpdated = GETDATE()
+    WHERE dbo.users.id = (
+        SELECT userId
+        FROM dbo.access
+        WHERE accessToken='${accessToken}')`;
+    const response =  await sqlConnector(query);
+    updateAccess(accessToken);
+    return response.rowsAffected[0];
 }
 
 setInterval(expireAccess, 60*60*1000);

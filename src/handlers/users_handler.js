@@ -5,7 +5,15 @@ import {
     logout,
     passwordRecovery,
     passwordChange,
-    myEmitter
+    myEmitter,
+    setName,
+    getName,
+    setGoal,
+    getGoal,
+    setWeight,
+    getWeight,
+    setHeight,
+    getHeight
 } from "../users.js";
 
 export const createUser_handler = async (req, res) => {
@@ -61,7 +69,7 @@ export const logout_handler = async (req, res) => {
         return res.status(202).send();
     }
     return res.status(500).send();
-}
+};
 
 export const passwordChange_handler = async (req, res) => {
     const { username, currentPassword, newPassword } = req.body;
@@ -95,4 +103,88 @@ export const passwordInputToken_handler = async (req, res) => {
     myEmitter.once(`${token}-B`, (cancel = false) => {
         return res.send(!cancel);
     });
+};
+
+export const setName_handler = async (req, res) => {
+    const { accessToken, name } = req.body;
+    if (
+        accessToken == undefined ||
+        name == undefined
+    ){
+        return res.status(400).send("Missing required fields");
+    }
+    return res.send(await setName(accessToken, name));
+};
+
+export const getName_handler = async (req, res) => {
+    const { accessToken } = req.body;
+    if (
+        accessToken == undefined
+    ){
+        return res.status(400).send("Missing required fields");
+    }
+    return res.send(await getName(accessToken));
+};
+
+export const setGoal_handler = async (req, res) => {
+    const { accessToken, goal } = req.body;
+    if (
+        accessToken == undefined ||
+        goal == undefined
+    ){
+        return res.status(400).send("Missing required fields");
+    }
+    return res.send(await setGoal(accessToken, goal));
+};
+
+export const getGoal_handler = async (req, res) => {
+    const { accessToken } = req.body;
+    if (
+        accessToken == undefined
+    ){
+        return res.status(400).send("Missing required fields");
+    }
+    return res.send(await getGoal(accessToken));
+};
+
+export const setWeight_handler = async (req, res) => {
+    const { accessToken, weight } = req.body;
+    if (
+        accessToken == undefined ||
+        weight == undefined
+    ){
+        return res.status(400).send("Missing required fields");
+    }
+    return res.send(await setWeight(accessToken, weight));
+};
+
+export const getWeight_handler = async (req, res) => {
+    const { accessToken } = req.body;
+    if (
+        accessToken == undefined
+    ){
+        return res.status(400).send("Missing required fields");
+    }
+    return res.send(await getWeight(accessToken));
+};
+
+export const setHeight_handler = async (req, res) => {
+    const { accessToken, height } = req.body;
+    if (
+        accessToken == undefined ||
+        height == undefined
+    ){
+        return res.status(400).send("Missing required fields");
+    }
+    return res.send(await setHeight(accessToken, height));
+};
+
+export const getHeight_handler = async (req, res) => {
+    const { accessToken } = req.body;
+    if (
+        accessToken == undefined
+    ){
+        return res.status(400).send("Missing required fields");
+    }
+    return res.send(await getHeight(accessToken));
 };

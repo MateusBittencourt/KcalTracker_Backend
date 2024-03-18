@@ -1,6 +1,10 @@
 import {
     createUser as sql_createUser,
     changePassword as sql_changePasword,
+    setName as setName_sql,
+    setGoal as setGoal_sql,
+    setWeight as setWeight_sql,
+    setHeight as setHeight_sql,
     getUser,
     getUserByToken,
     removeAccess,
@@ -121,4 +125,40 @@ export const passwordRecovery = async (email) => {
             myEmitter.emit(token, null, true)
         }, 21600000)
     }
+};
+
+export const setName = async (accessToken, name) => {
+    return await setName_sql(accessToken, name);
+};
+
+export const getName = async (accessToken) => {
+    const user = await getUserByToken(accessToken);
+    return user.name;
+};
+
+export const setGoal = async (accessToken, goal) => {
+    return await setGoal_sql(accessToken, goal);
+};
+
+export const getGoal = async (accessToken) => {
+    const user = await getUserByToken(accessToken);
+    return user.goal;
+};
+
+export const setWeight = async (accessToken, weight) => {
+    return await setWeight_sql(accessToken, weight);
+};
+
+export const getWeight = async (accessToken) => {
+    const user = await getUserByToken(accessToken);
+    return user.weight;
+};
+
+export const setHeight = async (accessToken, height) => {
+    return await setHeight_sql(accessToken, height);
+};
+
+export const getHeight = async (accessToken) => {
+    const user = await getUserByToken(accessToken);
+    return user.height;
 };

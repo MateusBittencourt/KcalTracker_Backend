@@ -138,6 +138,150 @@ paths:
               schema:
                 type: boolean
                 example: true
+  setName:
+    post:
+      tags:
+        - User
+      summary: Set user's name
+      x-router-controller: users
+      operationId: setName_handler
+      requestBody:
+        description: Set user's name
+        content:
+          application/json:
+            schema:
+              $ref: '#/schemas/SetName'
+      responses:
+        '200':
+          description: OK
+  getName:
+    post:
+      tags:
+        - User
+      summary: Get user's name
+      x-router-controller: users
+      operationId: getName_handler
+      requestBody:
+        description: Access Token
+        content:
+          application/json:
+            schema:
+              $ref: '#/schemas/TokenBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/schemas/GetName'
+  setGoal:
+    post:
+      tags:
+        - User
+      summary: Set user's goal
+      x-router-controller: users
+      operationId: setGoal_handler
+      requestBody:
+        description: Set user's goal
+        content:
+          application/json:
+            schema:
+              $ref: '#/schemas/SetGoal'
+      responses:
+        '200':
+          description: OK
+  getGoal:
+    post:
+      tags:
+        - User
+      summary: Get user's goal
+      x-router-controller: users
+      operationId: getGoal_handler
+      requestBody:
+        description: Access Token
+        content:
+          application/json:
+            schema:
+              $ref: '#/schemas/TokenBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/schemas/GetGoal'
+  setWeight:
+    post:
+      tags:
+        - User
+      summary: Set user's weight
+      x-router-controller: users
+      operationId: setWeight_handler
+      requestBody:
+        description: Set user's weight
+        content:
+          application/json:
+            schema:
+              $ref: '#/schemas/SetWeight'
+      responses:
+        '200':
+          description: OK
+  getWeight:
+    post:
+      tags:
+        - User
+      summary: Get user's weight
+      x-router-controller: users
+      operationId: getWeight_handler
+      requestBody:
+        description: Access Token
+        content:
+          application/json:
+            schema:
+              $ref: '#/schemas/TokenBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/schemas/GetWeight'
+  setHeight:
+    post:
+      tags:
+        - User
+      summary: Set user's height
+      x-router-controller: users
+      operationId: setHeight_handler
+      requestBody:
+        description: Set user's height
+        content:
+          application/json:
+            schema:
+              $ref: '#/schemas/SetHeight'
+      responses:
+        '200':
+          description: OK
+  getHeight:
+    post:
+      tags:
+        - User
+      summary: Get user's height
+      x-router-controller: users
+      operationId: getHeight_handler
+      requestBody:
+        description: Access Token
+        content:
+          application/json:
+            schema:
+              $ref: '#/schemas/TokenBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/schemas/GetHeight'
 
 schemas:
 
@@ -147,7 +291,6 @@ schemas:
       username: {$ref: '#/properties/username'}
       email: {$ref: '#/properties/email'}
       password: {$ref: '#/properties/password'}
-
 
   Login:
     type: object
@@ -192,7 +335,51 @@ schemas:
   TokenBody:
     type: object
     properties:
-      validationToken: {$ref: '#/properties/token'}
+      accessToken: {$ref: '#/properties/token'}
+
+  SetName:
+    type: object
+    properties:
+      accessToken: {$ref: '#/properties/token'}
+      name: {$ref: '#/properties/name'}
+
+  GetName:
+    type: object
+    properties:
+      name: {$ref: '#/properties/name'}
+  
+  SetGoal:
+    type: object
+    properties:
+      accessToken: {$ref: '#/properties/token'}
+      goal: {$ref: '#/properties/goal'}
+    
+  GetGoal:
+    type: object
+    properties:
+      goal: {$ref: '#/properties/goal'}
+  
+  SetWeight:
+    type: object
+    properties:
+      accessToken: {$ref: '#/properties/token'}
+      weight: {$ref: '#/properties/weight'}
+  
+  GetWeight:
+    type: object
+    properties:
+      weight: {$ref: '#/properties/weight'}
+  
+  SetHeight:
+    type: object
+    properties:
+      accessToken: {$ref: '#/properties/token'}
+      height: {$ref: '#/properties/height'}
+  
+  GetHeight:
+    type: object
+    properties:
+      height: {$ref: '#/properties/height'}
 
 properties:
 

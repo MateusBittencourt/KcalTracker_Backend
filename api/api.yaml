@@ -15,6 +15,14 @@ paths:
   /user/passwordChange: {$ref: 'paths/users.yaml#/paths/changePassword'}
   /user/passwordRecovery: {$ref: 'paths/users.yaml#/paths/recoverPassword'}
   /user/passwordInputToken: {$ref: 'paths/users.yaml#/paths/inputToken'}
+  /user/setName: {$ref: 'paths/users.yaml#/paths/setName'}
+  /user/getName: {$ref: 'paths/users.yaml#/paths/getName'}
+  /user/setGoal: {$ref: 'paths/users.yaml#/paths/setGoal'}
+  /user/getGoal: {$ref: 'paths/users.yaml#/paths/getGoal'}
+  /user/setWeight: {$ref: 'paths/users.yaml#/paths/setWeight'}
+  /user/getWeight: {$ref: 'paths/users.yaml#/paths/getWeight'}
+  /user/setHeight: {$ref: 'paths/users.yaml#/paths/setHeight'}
+  /user/getHeight: {$ref: 'paths/users.yaml#/paths/getHeight'}
   
   /history/get: {$ref: 'paths/history.yaml#/paths/history-get'}
   /history/add: {$ref: 'paths/history.yaml#/paths/history-add'}
