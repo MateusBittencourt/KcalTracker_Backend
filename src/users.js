@@ -133,7 +133,7 @@ export const setName = async (accessToken, name) => {
 
 export const getName = async (accessToken) => {
     const user = await getUserByToken(accessToken);
-    return user.name;
+    return { name: user.name };
 };
 
 export const setGoal = async (accessToken, goal) => {
@@ -142,7 +142,7 @@ export const setGoal = async (accessToken, goal) => {
 
 export const getGoal = async (accessToken) => {
     const user = await getUserByToken(accessToken);
-    return user.goal;
+    return { goal: user.goal };
 };
 
 export const setWeight = async (accessToken, weight) => {
@@ -151,7 +151,7 @@ export const setWeight = async (accessToken, weight) => {
 
 export const getWeight = async (accessToken) => {
     const user = await getUserByToken(accessToken);
-    return user.weight;
+    return { weight: user.weight };
 };
 
 export const setHeight = async (accessToken, height) => {
@@ -160,5 +160,5 @@ export const setHeight = async (accessToken, height) => {
 
 export const getHeight = async (accessToken) => {
     const user = await getUserByToken(accessToken);
-    return user.height;
+    return { height: user.height };
 };
