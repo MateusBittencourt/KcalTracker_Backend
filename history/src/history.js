@@ -2,7 +2,7 @@ import {
     getHistory as getHistory_sql,
     addHistory as addHistory_sql,
     removeHistory as removeHistory_sql
-} from './utils/sqlConnector.js'
+} from '@kcaltracker/storage'
 
 export const getHistory = async (accessToken, date) => {
     return await getHistory_sql(accessToken, date)

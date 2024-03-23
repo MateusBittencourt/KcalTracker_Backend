@@ -9,7 +9,7 @@ import {
     getUserByToken,
     removeAccess,
     createAccess
-} from './utils/sqlConnector.js'
+} from '@kcaltracker/storage'
 import { sendToken } from './utils/emailer.js';
 import { createHash, comparePassword } from './utils/password.js';
 import { EventEmitter } from'node:events';

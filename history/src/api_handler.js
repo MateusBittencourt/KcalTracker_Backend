@@ -2,7 +2,7 @@ import {
     getHistory,
     addHistory,
     removeHistory
-} from "../history.js";
+} from "./history.js";
 
 export const getHistory_handler = async (req, res) => {
     const { accessToken, date } = req.body

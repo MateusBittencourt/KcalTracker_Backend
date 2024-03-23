@@ -1,22 +1,18 @@
 {
-  "name": "kcaltracker",
+  "name": "@kcaltracker/tracker",
   "version": "1.0.0",
-  "description": "API for my Android APP",
-  "main": "index.js",
-  "type": "module",
+  "description": "tracker service for kcaltracker",
+  "main": "./src/index.js",
   "scripts": {
-    "access": "node access/src/index.js",
-    "history": "node history/src/index.js",
-    "user": "node user/src/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MateusBittencourt/KcalTracker.git"
   },
   "keywords": [
-    "kcaltracker",
-    "API",
-    "Backend"
+    "tracker",
+    "kcaltracker"
   ],
   "author": "Mateus Bittencourt",
   "bugs": {

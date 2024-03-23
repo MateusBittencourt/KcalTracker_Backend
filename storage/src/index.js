@@ -192,5 +192,3 @@ export const setHeight = async (accessToken, height) => {
     updateAccess(accessToken);
     return response.rowsAffected[0];
 }
-
-setInterval(expireAccess, 60*60*1000);

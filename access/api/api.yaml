@@ -1,0 +1,149 @@
+openapi: 3.0.3
+info:
+  title: MS-SQL API
+  description: API for a MS SQL server
+  version: 1.0.0
+tags:
+  - name: User
+    description: User CRUD
+
+paths:
+  /access/create:
+    post:
+      tags:
+        - User
+      summary: Create User
+      x-router-controller: api_handler
+      operationId: createUser_handler
+      requestBody:
+        description: Created User object
+        content:
+          application/json:
+            schema: 
+              $ref: 'schemas.yaml#/schemas/Create'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+  /access/login: 
+    post:
+      tags:
+        - User
+      summary: Logs User into the system
+      x-router-controller: users
+      operationId: login_handler
+      requestBody:
+        description: Created User object
+        content:
+          application/json:
+            schema:
+              $ref: 'schemas.yaml#/schemas/Login'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: 'schemas.yaml#/schemas/TokenBody'
+        '400':
+          description: Invalid Username/password supplied
+  /access/loginByToken: 
+    post:
+      tags:
+        - User
+      summary: Logs User into the system
+      x-router-controller: users
+      operationId: loginByToken_handler
+      requestBody:
+        description: Created User object
+        content:
+          application/json:
+            schema:
+              $ref: 'schemas.yaml#/schemas/TokenBody'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: 'schemas.yaml#/schemas/TokenBody'
+        '400':
+          description: Invalid Username/password supplied
+  /access/logout: 
+    post:
+      tags:
+        - User
+      summary: Logout user
+      x-router-controller: users
+      operationId: logout_handler
+      requestBody:
+        description: Access Token
+        content:
+          application/json:
+            schema:
+              $ref: 'schemas.yaml#/schemas/TokenBody'
+      responses:
+        '202':
+          description: OK
+  /access/passwordChange:
+    post:
+      tags:
+        - User
+      summary: Change Password
+      x-router-controller: users
+      operationId: passwordChange_handler
+      requestBody:
+        description: Changes user's password.
+        content:
+          application/json:
+            schema:
+              $ref: 'schemas.yaml#/schemas/PasswordChange'
+      responses:
+        '200':
+          description: OK
+  /access/passwordRecovery: 
+    post:
+      tags:
+        - User
+      summary: Password recovery
+      x-router-controller: users
+      operationId: passwordRecovery_handler
+      requestBody:
+        description: Generates a token for users to change their password.
+        content:
+          application/json:
+            schema:
+              $ref: 'schemas.yaml#/schemas/PasswordRecovery'
+      responses:
+        '202':
+          description: Accepted
+  /access/passwordInputToken:
+    post:
+      tags:
+        - User
+      summary: Password recovery change
+      x-router-controller: users
+      operationId: passwordInputToken_handler
+      requestBody:
+        description: Generates a token for users to change their password.
+        content:
+          application/json:
+            schema:
+              $ref: 'schemas.yaml#/schemas/TokenReply'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true

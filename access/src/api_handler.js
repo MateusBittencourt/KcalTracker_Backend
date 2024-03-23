@@ -14,7 +14,7 @@ import {
     getWeight,
     setHeight,
     getHeight
-} from "../users.js";
+} from "./users.js";
 
 export const createUser_handler = async (req, res) => {
     const { username, email, password } = req.body;

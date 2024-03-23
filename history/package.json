@@ -1,0 +1,26 @@
+{
+  "name": "@kcaltracker/history",
+  "version": "1.0.0",
+  "description": "History service for kcaltracker",
+  "main": "./src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MateusBittencourt/KcalTracker.git"
+  },
+  "keywords": [
+    "history",
+    "kcaltracker"
+  ],
+  "author": "Mateus Bittencourt",
+  "bugs": {
+    "url": "https://github.com/MateusBittencourt/KcalTracker/issues"
+  },
+  "homepage": "https://github.com/MateusBittencourt/KcalTracker#readme",
+  "dependencies": {
+    "@kcaltracker/storage": "file:../storage"
+  }
+}
