@@ -4,14 +4,14 @@ info:
   description: API for a MS SQL server
   version: 1.0.0
 tags:
-  - name: User
+  - name: Access
     description: User CRUD
 
 paths:
   /access/create:
     post:
       tags:
-        - User
+        - Access
       summary: Create User
       x-router-controller: api_handler
       operationId: createUser_handler
@@ -37,9 +37,9 @@ paths:
   /access/login: 
     post:
       tags:
-        - User
+        - Access
       summary: Logs User into the system
-      x-router-controller: users
+      x-router-controller: api_handler
       operationId: login_handler
       requestBody:
         description: Created User object
@@ -59,9 +59,9 @@ paths:
   /access/loginByToken: 
     post:
       tags:
-        - User
+        - Access
       summary: Logs User into the system
-      x-router-controller: users
+      x-router-controller: api_handler
       operationId: loginByToken_handler
       requestBody:
         description: Created User object
@@ -81,9 +81,9 @@ paths:
   /access/logout: 
     post:
       tags:
-        - User
+        - Access
       summary: Logout user
-      x-router-controller: users
+      x-router-controller: api_handler
       operationId: logout_handler
       requestBody:
         description: Access Token
@@ -97,9 +97,9 @@ paths:
   /access/passwordChange:
     post:
       tags:
-        - User
+        - Access
       summary: Change Password
-      x-router-controller: users
+      x-router-controller: api_handler
       operationId: passwordChange_handler
       requestBody:
         description: Changes user's password.
@@ -113,9 +113,9 @@ paths:
   /access/passwordRecovery: 
     post:
       tags:
-        - User
+        - Access
       summary: Password recovery
-      x-router-controller: users
+      x-router-controller: api_handler
       operationId: passwordRecovery_handler
       requestBody:
         description: Generates a token for users to change their password.
@@ -129,9 +129,9 @@ paths:
   /access/passwordInputToken:
     post:
       tags:
-        - User
+        - Access
       summary: Password recovery change
-      x-router-controller: users
+      x-router-controller: api_handler
       operationId: passwordInputToken_handler
       requestBody:
         description: Generates a token for users to change their password.

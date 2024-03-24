@@ -1,7 +1,7 @@
 {
-  "name": "@kcaltracker/storage",
+  "name": "@kcaltracker/broker",
   "version": "1.0.0",
-  "description": "Storage microservice for KcalTracker",
+  "description": "Message broker for kcaltracker",
   "main": "./src/index.js",
   "type": "module",
   "scripts": {
@@ -12,7 +12,9 @@
     "url": "git+https://github.com/MateusBittencourt/KcalTracker_Backend.git"
   },
   "keywords": [
-    "storage",
+    "message",
+    "broker",
+    "messagebroker",
     "kcaltracker"
   ],
   "author": "Mateus Bittencourt",
@@ -21,8 +23,6 @@
   },
   "homepage": "https://github.com/MateusBittencourt/KcalTracker_Backend#readme",
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "mssql": "^10.0.2",
-    "uuid": "^9.0.1"
+    "amqplib": "^0.10.3"
   }
 }

@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/MateusBittencourt/KcalTracker#readme",
   "dependencies": {
-    "@kcaltracker/storage": "file:../storage"
+    "@kcaltracker/storage": "file:../storage",
+    "@kcaltracker/broker": "file:../broker"
   }
 }

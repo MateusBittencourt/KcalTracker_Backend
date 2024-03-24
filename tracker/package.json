@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MateusBittencourt/KcalTracker.git"
+    "url": "git+https://github.com/MateusBittencourt/KcalTracker_Backend.git"
   },
   "keywords": [
     "tracker",
@@ -16,7 +16,7 @@
   ],
   "author": "Mateus Bittencourt",
   "bugs": {
-    "url": "https://github.com/MateusBittencourt/KcalTracker/issues"
+    "url": "https://github.com/MateusBittencourt/KcalTracker_Backend/issues"
   },
-  "homepage": "https://github.com/MateusBittencourt/KcalTracker#readme"
+  "homepage": "https://github.com/MateusBittencourt/KcalTracker_Backend#readme"
 }
