@@ -7,7 +7,8 @@
   "scripts": {
     "access": "node access/src/index.js",
     "history": "node history/src/index.js",
-    "user": "node user/src/index.js"
+    "user": "node user/src/index.js",
+    "tracker": "node tracker/src/index.js"
   },
   "repository": {
     "type": "git",
