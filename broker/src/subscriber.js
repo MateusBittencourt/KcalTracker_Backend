@@ -34,8 +34,8 @@ const subscribe = async (working_queue, routingGroup, type, handler) => {
 
                 channel.consume(q.queue, function(msg) {
                     if (msg.content) {
-                        handler(msg);
-                        console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
+                        const message = JSON.parse(msg.content.toString());
+                        handler(message);
                     }
                 }, { noAck: true });
             });

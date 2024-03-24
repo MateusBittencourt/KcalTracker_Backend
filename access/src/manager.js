@@ -7,6 +7,33 @@ import { channels, publish } from '@kcaltracker/broker';
 
 export const myEmitter = new EventEmitter();
 
+////////////////////////////////////////
+/// Private functions
+////////////////////////////////////////
+
+/**
+ * Create login event.
+ * 
+ * @param {string} accessToken - The access token.
+ * @returns {Object} The login event.
+ */
+const loginEvent = (accessToken) => {
+    return {
+        service: 'access',
+        event: {
+            type: 'login',
+            data: {
+                accessToken
+            }
+        }
+    };
+};
+
+
+////////////////////////////////////////
+/// Public functions
+////////////////////////////////////////
+
 /**
  * Creates a new user.
  * 
@@ -46,7 +73,7 @@ export const login = async (username, password) => {
         if (comparePassword(password, user.hash)){
             const accessToken = uuidv4();
             await accessSql.createAccess(user.id, accessToken);
-            publish(accessToken, channels.accessService, 'event');
+            publish(loginEvent(accessToken), channels.accessService);
             return { accessToken }
         }
     }

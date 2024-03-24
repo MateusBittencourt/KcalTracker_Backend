@@ -1,4 +1,5 @@
 import { request } from './mssqlConector.js'
+import { updateAccess } from './access.js'
 
 /**
  * Get the history of the user.

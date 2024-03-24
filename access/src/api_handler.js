@@ -6,7 +6,7 @@ import {
     passwordRecovery,
     passwordChange,
     myEmitter
-} from "./users.js";
+} from "./manager.js";
 
 /**
  * Creates a user.

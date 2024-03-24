@@ -1,4 +1,30 @@
 import { historySql } from '@kcaltracker/storage'
+import { channels, publish } from '@kcaltracker/broker';
+
+////////////////////////////////////////
+/// Private functions
+////////////////////////////////////////
+
+/**
+ * Create a history event.
+ * 
+ * @param {Object} history - The history object.
+ * @returns {Object} The history event.
+ */
+const historyEvent = (history) => {
+    return {
+        service: 'history',
+        event: {
+            type: 'event',
+            data: { history }
+        }
+    };
+}
+
+
+////////////////////////////////////////
+/// Public functions
+////////////////////////////////////////
 
 /**
  * Get the history of the user.
@@ -8,7 +34,8 @@ import { historySql } from '@kcaltracker/storage'
  * @returns {Object} The history of the user.
  */
 export const getHistory = async (accessToken, date) => {
-    return await historySql.getHistory(accessToken, date)
+    const history = await historySql.getHistory(accessToken, date)
+    publish(historyEvent(history), channels.historyService)
 };
 
 /**
