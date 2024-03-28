@@ -5,17 +5,16 @@ import {
     logout,
     passwordRecovery,
     passwordChange,
-    myEmitter,
-    setName,
-    getName,
-    setGoal,
-    getGoal,
-    setWeight,
-    getWeight,
-    setHeight,
-    getHeight
-} from "../users.js";
+    myEmitter
+} from "./manager.js";
 
+/**
+ * Creates a user.
+ * 
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The response object.
+ */
 export const createUser_handler = async (req, res) => {
     const { username, email, password } = req.body;
     if (
@@ -29,6 +28,13 @@ export const createUser_handler = async (req, res) => {
     return res.status(reply.statusCode).send(reply.response);
 };
 
+/**
+ * Logs in a user.
+ * 
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The response object.
+ */
 export const login_handler = async (req, res) => {
     const { username, password } = req.body;
     if (
@@ -44,6 +50,13 @@ export const login_handler = async (req, res) => {
     return res.status(400).send("Wrong Username/email or Password");
 };
 
+/**
+ * Logs in a user by token.
+ * 
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The response object.
+ */
 export const loginByToken_handler = async (req, res) => {
     const { accessToken } = req.body;
     if (
@@ -58,6 +71,13 @@ export const loginByToken_handler = async (req, res) => {
     return res.status(403).send();
 };
 
+/**
+ * Logs out a user.
+ * 
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The response object.
+ */
 export const logout_handler = async (req, res) => {
     const { accessToken } = req.body;
     if (
@@ -71,6 +91,13 @@ export const logout_handler = async (req, res) => {
     return res.status(500).send();
 };
 
+/**
+ * Changes the password of a user.
+ * 
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The response object.
+ */
 export const passwordChange_handler = async (req, res) => {
     const { username, currentPassword, newPassword } = req.body;
     if (
@@ -83,6 +110,13 @@ export const passwordChange_handler = async (req, res) => {
     return res.send(await passwordChange(username, currentPassword, newPassword));
 };
 
+/**
+ * Recovers the password of a user.
+ * 
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The response object.
+ */
 export const passwordRecovery_handler = async (req, res) => {
     const { email } = req.body;
 
@@ -93,6 +127,13 @@ export const passwordRecovery_handler = async (req, res) => {
     return res.send();
 };
 
+/**
+ * Changes the password of a user by token.
+ * 
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The response object.
+ */
 export const passwordInputToken_handler = async (req, res) => {
     const { validationToken, password } = req.body;
 
@@ -103,88 +144,4 @@ export const passwordInputToken_handler = async (req, res) => {
     myEmitter.once(`${token}-B`, (cancel = false) => {
         return res.send(!cancel);
     });
-};
-
-export const setName_handler = async (req, res) => {
-    const { accessToken, name } = req.body;
-    if (
-        accessToken == undefined ||
-        name == undefined
-    ){
-        return res.status(400).send("Missing required fields");
-    }
-    return res.send(await setName(accessToken, name));
-};
-
-export const getName_handler = async (req, res) => {
-    const { accessToken } = req.body;
-    if (
-        accessToken == undefined
-    ){
-        return res.status(400).send("Missing required fields");
-    }
-    return res.send(await getName(accessToken));
-};
-
-export const setGoal_handler = async (req, res) => {
-    const { accessToken, goal } = req.body;
-    if (
-        accessToken == undefined ||
-        goal == undefined
-    ){
-        return res.status(400).send("Missing required fields");
-    }
-    return res.send(await setGoal(accessToken, goal));
-};
-
-export const getGoal_handler = async (req, res) => {
-    const { accessToken } = req.body;
-    if (
-        accessToken == undefined
-    ){
-        return res.status(400).send("Missing required fields");
-    }
-    return res.send(await getGoal(accessToken));
-};
-
-export const setWeight_handler = async (req, res) => {
-    const { accessToken, weight } = req.body;
-    if (
-        accessToken == undefined ||
-        weight == undefined
-    ){
-        return res.status(400).send("Missing required fields");
-    }
-    return res.send(await setWeight(accessToken, weight));
-};
-
-export const getWeight_handler = async (req, res) => {
-    const { accessToken } = req.body;
-    if (
-        accessToken == undefined
-    ){
-        return res.status(400).send("Missing required fields");
-    }
-    return res.send(await getWeight(accessToken));
-};
-
-export const setHeight_handler = async (req, res) => {
-    const { accessToken, height } = req.body;
-    if (
-        accessToken == undefined ||
-        height == undefined
-    ){
-        return res.status(400).send("Missing required fields");
-    }
-    return res.send(await setHeight(accessToken, height));
-};
-
-export const getHeight_handler = async (req, res) => {
-    const { accessToken } = req.body;
-    if (
-        accessToken == undefined
-    ){
-        return res.status(400).send("Missing required fields");
-    }
-    return res.send(await getHeight(accessToken));
 };

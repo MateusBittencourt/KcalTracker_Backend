@@ -1,0 +1,60 @@
+schemas:
+
+  Create:
+    type: object
+    properties:
+      username: {$ref: '#/properties/username'}
+      email: {$ref: '#/properties/email'}
+      password: {$ref: '#/properties/password'}
+
+  Login:
+    type: object
+    properties:
+      username: {$ref: '#/properties/username'}
+      password: {$ref: '#/properties/password'}
+  
+  PasswordRecovery:
+    type: object
+    properties:
+      email: {$ref: '#/properties/email'}
+  
+  PasswordChange:
+    type: object
+    properties:
+      username: {$ref: '#/properties/username'}
+      currentPassword: {$ref: '#/properties/password'}
+      newPassword: {$ref: '#/properties/password'}
+  
+  TokenReply:
+    type: object
+    properties:
+      validationToken: {$ref: '#/properties/validationToken'}
+      password: {$ref: '#/properties/password'}
+  
+  TokenBody:
+    type: object
+    properties:
+      accessToken: {$ref: '#/properties/accessToken'}
+
+properties:
+
+  username:
+    type: string
+    example: MateusBittencourt
+
+  email:
+    type: string
+    format: email
+    example: mateus.bittencourt@outlook.com
+
+  password:
+    type: string
+    example: password
+
+  accessToken:
+    type: string
+    example: 00000000-0000-0000-0000-000000000000
+  
+  validationToken:
+    type: string
+    example: 00000000-0000-0000-0000-000000000000

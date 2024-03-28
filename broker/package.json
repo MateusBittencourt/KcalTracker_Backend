@@ -1,0 +1,28 @@
+{
+  "name": "@kcaltracker/broker",
+  "version": "1.0.0",
+  "description": "Message broker for kcaltracker",
+  "main": "./src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MateusBittencourt/KcalTracker_Backend.git"
+  },
+  "keywords": [
+    "message",
+    "broker",
+    "messagebroker",
+    "kcaltracker"
+  ],
+  "author": "Mateus Bittencourt",
+  "bugs": {
+    "url": "https://github.com/MateusBittencourt/KcalTracker_Backend/issues"
+  },
+  "homepage": "https://github.com/MateusBittencourt/KcalTracker_Backend#readme",
+  "dependencies": {
+    "amqplib": "^0.10.3"
+  }
+}

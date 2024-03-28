@@ -1,5 +1,6 @@
 import { createTransport } from "nodemailer";
 
+// Create a transporter object
 const transporter = createTransport({
     service: "Gmail",
   host: "smtp.gmail.com",
@@ -11,6 +12,13 @@ const transporter = createTransport({
   },
 });
 
+/**
+ * Send a token to the user.
+ * 
+ * @param {string} userEmail - The email of the user.
+ * @param {string} token - The token for the user to change their password.
+ * @returns {boolean} True if the token is sent.
+ */
 export const sendToken =  async (userEmail, token) => {
     return await transporter.sendMail({
     from: '"KcalTracker" <kcaltracker.app@gmail.com>',

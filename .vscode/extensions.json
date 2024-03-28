@@ -3,29 +3,14 @@
 	// Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
 	// List of extensions which should be recommended for users of this workspace.
 	"recommendations": [
-		"42crunch.vscode-openapi",
-		"apollographql.vscode-apollo",
-		"Arjun.swagger-viewer",
-		"bierner.markdown-mermaid",
-		"DavidAnson.vscode-markdownlint",
+		"christian-kohler.npm-intellisense",
 		"dbaeumer.vscode-eslint",
 		"eamodio.gitlens",
-		"hashicorp.terraform",
-		"hediet.vscode-drawio",
-		"marlon407.code-groovy",
-		"mermade.openapi-lint",
-		"MS-CST-E.vscode-devskim",
-		"ms-kubernetes-tools.vscode-kubernetes-tools",
-		"NicolasVuillamy.vscode-groovy-lint",
-		"redhat.vscode-yaml",
-		"shanoor.vscode-nginx",
+		"fknop.vscode-npm",
 		"sonarsource.sonarlint-vscode",
-		"svelte.svelte-vscode",
-		"timonwong.shellcheck",
-		"Veracosta.mib",
-		"VisualStudioExptTeam.vscodeintellicode",
+		"visualstudioexptteam.vscodeintellicode",
 		"vscode-icons-team.vscode-icons",
-		"zxh404.vscode-proto3"
+		"xabikos.javascriptsnippets"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": []

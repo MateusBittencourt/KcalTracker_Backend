@@ -1,0 +1,32 @@
+{
+  "name": "@kcaltracker/access",
+  "version": "1.0.0",
+  "description": "Access server to KcalTracker",
+  "main": "./src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MateusBittencourt/KcalTracker_Backend.git"
+  },
+  "keywords": [
+    "access",
+    "kcaltracker"
+  ],
+  "author": "Mateus Bittencourt",
+  "bugs": {
+    "url": "https://github.com/MateusBittencourt/KcalTracker_Backend/issues"
+  },
+  "homepage": "https://github.com/MateusBittencourt/KcalTracker_Backend#readme",
+  "dependencies": {
+    "@kcaltracker/storage": "file:../storage",
+    "@kcaltracker/broker": "file:../broker",
+    "@oas-tools/core": "^3.1.0",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.3",
+    "nodemailer": "^6.9.11",
+    "uuid": "^9.0.1"
+  }
+}
