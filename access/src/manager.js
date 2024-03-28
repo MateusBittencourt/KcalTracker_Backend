@@ -15,7 +15,7 @@ export const myEmitter = new EventEmitter();
  * Create login event.
  * 
  * @param {string} accessToken - The access token.
- * @returns {Object} The login event.
+ * @returns {Object} - The login event.
  */
 const loginEvent = (accessToken) => {
     return {
@@ -40,7 +40,7 @@ const loginEvent = (accessToken) => {
  * @param {string} username - The username of the user.
  * @param {string} email - The email of the user.
  * @param {string} password - The password of the user.
- * @returns {Object} Reply object.
+ * @returns {Object} - Reply object.
  */
 export const createUser = async (username, email, password) => {
     let reply = {};
@@ -65,7 +65,7 @@ export const createUser = async (username, email, password) => {
  * 
  * @param {string} username - The username of the user.
  * @param {string} password - The password of the user.
- * @returns {Object} Reply object.
+ * @returns {Object} - Reply object.
  */
 export const login = async (username, password) => {
     const user = await accessSql.getUser(username);
@@ -84,7 +84,7 @@ export const login = async (username, password) => {
  * Logs in a user by token.
  * 
  * @param {string} accessToken - The access token.
- * @returns {Object} Reply object.
+ * @returns {Object} - Reply object.
  */
 export const loginByToken = async (accessToken) => {
     const user = await accessSql.getUserByToken(accessToken);
@@ -98,7 +98,7 @@ export const loginByToken = async (accessToken) => {
  * Logs out a user.
  * 
  * @param {string} accessToken - The access token.
- * @returns {boolean} True if the user was logged out.
+ * @returns {boolean} - True if the user was logged out.
  */
 export const logout = async (accessToken) => {
     return !!(await accessSql.removeAccess(accessToken));
@@ -110,7 +110,7 @@ export const logout = async (accessToken) => {
  * @param {string} username - The username of the user.
  * @param {string} currentPassword - The current password of the user.
  * @param {string} newPassword - The new password of the user.
- * @returns {boolean} True if the password was changed.
+ * @returns {boolean} - True if the password was changed.
  */
 export const passwordChange = async (username, currentPassword, newPassword) => {
     const user = await accessSql.getUser(username);
